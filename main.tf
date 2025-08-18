@@ -65,6 +65,18 @@ output "kubeconfig" {
   sensitive = true
 }
 
+module "cluster_autoscaler" {
+  source                   = "./modules/cluster-autoscaler"
+  cluster_name             = var.cluster_name
+  aws_region               = var.aws_region
+  cluster_autoscaler_version = "v1.29.0"
+  hpa_namespace            = "default"
+  hpa_target_deployment    = "your-deployment-name"
+  hpa_min_replicas         = 2
+  hpa_max_replicas         = 10
+  hpa_cpu_utilization      = 70
+}
+
 output "cluster_name" {
   value = module.eks.cluster_name
 }
