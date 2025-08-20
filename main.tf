@@ -85,6 +85,16 @@ module "ingress_nginx" {
   metrics_enabled = true
 }
 
+module "eks_addons" {
+  source             = "./modules/eks-addons"
+  cluster_name       = module.eks.cluster_name
+  coredns_version    = "v1.10.1-eksbuild.6"
+  kube_proxy_version = "v1.29.1-eksbuild.1"
+  vpc_cni_version    = "v1.18.1-eksbuild.1"
+  ebs_csi_version    = "v1.29.1-eksbuild.1"
+  efs_csi_version    = "v1.7.4-eksbuild.1"
+}
+
 output "cluster_name" {
   value = module.eks.cluster_name
 }
