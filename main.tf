@@ -77,6 +77,14 @@ module "cluster_autoscaler" {
   hpa_cpu_utilization      = 70
 }
 
+module "ingress_nginx" {
+  source        = "./modules/ingress-nginx"
+  namespace     = "ingress-nginx"
+  replica_count = 2
+  service_type  = "LoadBalancer"
+  metrics_enabled = true
+}
+
 output "cluster_name" {
   value = module.eks.cluster_name
 }
